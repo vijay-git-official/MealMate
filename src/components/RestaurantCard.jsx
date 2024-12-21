@@ -1,28 +1,36 @@
-
 import PropTypes from 'prop-types';
+import { CDN_URL } from '../utils/constants';
 
-const RestaurantCard = ({resName , cuisine}) => {
+const RestaurantCard = ({ resData }) => {
+
+    const {cloudinaryImageId,name,cuisines,avgRating} = resData?.info || {} // error 
+
     return (
-
-        <div className="p-4 mt-10">
-            <div className="border p-4 mt-5 w-52 rounded-lg">
+        <div className="p-5 mt-10">
+            <div className="border p-1 mt-5 w-52 rounded-lg text-white">
                 <img
-                    src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/RX_THUMBNAIL/IMAGES/VENDOR/2024/11/5/c5d8f076-7aea-43ee-902a-06df0f1eb852_752535.JPG"
-                    alt="KFC"
+                    src={ CDN_URL + cloudinaryImageId}
+                    alt="img"
                     className="w-full rounded-lg"
                 />
-                <h3 className="text-2xl font-bold"> Name : {resName}</h3>
-                <h4> Cuisine : {cuisine}</h4>
-             
+                <h3 className="text font-bold">Name: {name}</h3>
+                <h4>Cuisines: {cuisines.join(', ')}</h4>
+                <h4>Rating  : {avgRating}</h4>
             </div>
         </div>
-
     );
 };
 
+// Prop validation => why ?
 RestaurantCard.propTypes = {
-    resName: PropTypes.string.isRequired,
-    cuisine: PropTypes.string.isRequired,
+    resData: PropTypes.shape({
+        info: PropTypes.shape({
+            name: PropTypes.string.isRequired, 
+            avgRating: PropTypes.number.isRequired,
+            cuisines: PropTypes.arrayOf(PropTypes.string).isRequired, 
+            cloudinaryImageId: PropTypes.string.isRequired, 
+        }).isRequired,
+    }).isRequired,
 };
 
 export default RestaurantCard;
