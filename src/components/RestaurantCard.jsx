@@ -7,13 +7,13 @@ const RestaurantCard = ({ resData }) => {
 
     return (
         <div className="p-5 mt-10">
-            <div className="border p-1 mt-5 w-52 rounded-lg text-white">
-                <img
+            <div className="border p-7  mt-5 w-52 h-96 rounded-lg text-white">
+                <img 
                     src={ CDN_URL + cloudinaryImageId}
                     alt="img"
-                    className="w-full rounded-lg"
+                    className="w-full rounded-lg "
                 />
-                <h3 className="text font-bold">Name: {name}</h3>
+                <h3 className="text font-bold">{name}</h3>
                 <h4>Cuisines: {cuisines.join(', ')}</h4>
                 <h4>Rating  : {avgRating}</h4>
             </div>

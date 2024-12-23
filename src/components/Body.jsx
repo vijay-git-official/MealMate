@@ -1,6 +1,7 @@
 import RestaurantCard from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Body = () => {
   const [listOfRestaurent, setListOfRestaurent] = useState([]);
@@ -76,7 +77,13 @@ const Body = () => {
       <div className="flex flex-wrap -mt-14">
         {filterRest.length > 0 ? (
           filterRest.map((restaurant) => (
-            <RestaurantCard key={restaurant.info.id} resData={restaurant} />
+
+            <Link
+              key={restaurant.info.id}
+              to={"/restaurents/" + restaurant.info.id}>
+              <RestaurantCard resData={restaurant} />
+
+            </Link>
           ))
         ) : (
           <h2 className="text-center w-full mt-10">No Restaurants Found</h2>
