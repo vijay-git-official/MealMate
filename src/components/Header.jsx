@@ -2,14 +2,14 @@
 import { LOGO_URL } from "../utils/constants";
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-
+import useOnlineStatus from "../utils/useOnlineStaus";
 
 
 const Header = () => {
   const [btn, setBtn] = useState("Login")
 
 
-
+  const onlineStatus = useOnlineStatus()
 
   return (
     <div className="flex items-center  justify-between  border border-gray-300 shadow-lg  bg-red-700">
@@ -29,9 +29,14 @@ const Header = () => {
             <Link to="/"> Home </Link>
           </li>
           <li>
+            Status : {onlineStatus ? "online" : "offline"}
+          </li>
+          <li>
             <Link to="/about">About</Link>
           </li>
-          <li>Contact Us</li>
+          <li>
+            <Link to="/offer">Offers</Link>
+          </li>
           <li>Cart</li>
           <button className="bg-red-100 rounded-lg p-1" onClick={() => {
             btn === "Login" ? setBtn("Logout") : setBtn("Login");
