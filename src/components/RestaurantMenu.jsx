@@ -1,11 +1,13 @@
 import { useParams } from "react-router-dom";
 import useRestaurentMenu from "../utils/useRestaurentMenu";
+import { useDispatch } from "react-redux";
+import { addItems } from "../utils/cartSlice"
 
 
 const RestaurantMenu = () => {
     const { resId } = useParams();
     const resInfo = useRestaurentMenu(resId);
-
+    const dispatch = useDispatch()
 
     if (!resInfo) return <div className="text-center mt-8">Loading...</div>;
 
@@ -15,7 +17,9 @@ const RestaurantMenu = () => {
         resInfo?.cards?.[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.[2]?.card?.card?.itemCards || [];
 
 
-
+    const handleAddItem = (item) => {
+        dispatch(addItems(item))
+    }
 
 
     return (
@@ -35,7 +39,7 @@ const RestaurantMenu = () => {
                                     ₹{item.card.info.price / 100 || item.card.info.defaultPrice / 100 || "N/A"}
                                 </p>
                                 <p className="text-sm text-gray-500">{item.card.info.description || "No description available."}</p>
-                                <button className="mt-4 bg-red-300 p-2 rounded-md">Add Items </button>
+                                <button onClick={() => handleAddItem(item)} className="mt-4 bg-red-300 p-2 rounded-md">Add Items </button>
                             </li>
                         ))}
 

@@ -5,16 +5,24 @@ import About from "./components/About";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 import { lazy, Suspense } from "react";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
+import Cart from "./components/Cart"
+
 
 
 const Offers = lazy(() => import("./components/Offers"))
 
+
+
 const AppLayout = () => {
   return (
-    <div className="app">
-      <Header />
-      <Outlet />
-    </div>
+    <Provider store={appStore} >
+      <div className="app">
+        <Header />
+        <Outlet />
+      </div>
+    </Provider>
   );
 };
 
@@ -31,6 +39,10 @@ function App() {
         {
           path: "/about",
           element: <About />,
+        },
+        {
+          path: "/cart",
+          element: <Cart />
         },
         {
           path: "/restaurant/:resId",
