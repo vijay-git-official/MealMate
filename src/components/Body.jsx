@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-
-
 const Body = () => {
   const [listOfRestaurant, setListOfRestaurant] = useState([]);
   const [filterRest, setFilterRest] = useState([]);
@@ -45,8 +43,6 @@ const Body = () => {
     setFilterRest(filteredResList);
   };
 
- 
-
   const handleSearch = () => {
     const searchRestaurant = listOfRestaurant.filter((res) =>
       res.info.name.toLowerCase().includes(search.toLowerCase())
@@ -57,48 +53,47 @@ const Body = () => {
   if (loading) return <div className="text-center mt-8">Loading...</div>;
   if (error) return <div className="text-center mt-8 text-red-500">{error}</div>;
 
-
-
-
   return (
-    <div className="border bg-black">
-      <div className="flex filter-button self-start p-4">
-        <button
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          onClick={handleFilter}
-        >
-          Top Rated Restaurants
-        </button>
-        <div className="ml-5 flex">
-          <input
-            className="p-2 rounded border"
-            placeholder="Search Restaurant"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+    <div className="bg-gray-100 min-h-screen">
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-8">
           <button
-            className="ml-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-            onClick={handleSearch}
+            className="w-full md:w-auto px-6 py-3 bg-red-600 text-white rounded-full hover:bg-red-700 transition duration-300 mb-4 md:mb-0"
+            onClick={handleFilter}
           >
-            Search
+            Top Rated Restaurants
           </button>
-        </div>
-      </div>
-
-      <div className="flex flex-wrap justify-center">
-        {filterRest.length > 0 ? (
-          filterRest.map((restaurant) => (
-            <Link
-              key={restaurant.info.id}
-              to={`/restaurant/${restaurant.info.id}`}
-              className="m-4"
+          <div className="w-full md:w-auto flex flex-col md:flex-row items-center">
+            <input
+              className="w-full md:w-64 p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-600 mb-4 md:mb-0 md:mr-4"
+              placeholder="Search Restaurant"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <button
+              className="w-full md:w-auto px-6 py-3 bg-red-600 text-white rounded-full hover:bg-red-700 transition duration-300"
+              onClick={handleSearch}
             >
-              <RestaurantCard resData={restaurant} />
-            </Link>
-          ))
-        ) : (
-          <h2 className="text-center w-full mt-10 text-xl">No Restaurants Found</h2>
-        )}
+              Search
+            </button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          {filterRest.length > 0 ? (
+            filterRest.map((restaurant) => (
+              <Link
+                key={restaurant.info.id}
+                to={`/restaurant/${restaurant.info.id}`}
+                className="block"
+              >
+                <RestaurantCard resData={restaurant} />
+              </Link>
+            ))
+          ) : (
+            <h2 className="col-span-full text-center text-xl text-gray-600">No Restaurants Found</h2>
+          )}
+        </div>
       </div>
     </div>
   );

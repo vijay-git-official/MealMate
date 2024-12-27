@@ -5,18 +5,21 @@ const RestaurantCard = ({ resData }) => {
     const { cloudinaryImageId, name, cuisines, avgRating } = resData?.info || {};
 
     return (
-        <div className="w-64 h-80 p-4 m-2 rounded-lg shadow-lg bg-white flex flex-col">
+        <div className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
             <img 
                 src={CDN_URL + cloudinaryImageId}
                 alt={name}
-                className="w-full h-32 object-cover rounded-lg"
+                className="w-full h-48 object-cover"
             />
-            <div className="flex-1 flex flex-col justify-between p-4">
-                <h3 className="font-bold text-lg mb-1 text-gray-800 truncate">{name}</h3>
-                <p className="text-gray-600 text-sm mb-2">{cuisines?.join(', ')}</p>
-                <div className="flex items-center">
-                    <span className="text-yellow-500 mr-1">★</span>
-                    <span className="text-gray-700">{avgRating}</span>
+            <div className="p-4">
+                <h3 className="font-bold text-lg mb-2 text-gray-800 truncate">{name}</h3>
+                <p className="text-gray-600 text-sm mb-2 h-12 overflow-hidden">{cuisines?.join(', ')}</p>
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center bg-green-500 text-white px-2 py-1 rounded">
+                        <span className="mr-1">★</span>
+                        <span>{avgRating}</span>
+                    </div>
+                    <span className="text-sm text-gray-500">30-40 min</span>
                 </div>
             </div>
         </div>
@@ -35,3 +38,4 @@ RestaurantCard.propTypes = {
 };
 
 export default RestaurantCard;
+
